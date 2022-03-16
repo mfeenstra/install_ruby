@@ -14,27 +14,25 @@ dnf install -y \
   bind-utils \
   cronie cronie-anacron curl dmidecode expect gcc \
   gcc-c++ git glibc-langpack-en glibc-locale-source \
-  gnu-free-sans-fonts gnuplot gnuplot-common htop iotop iptraf-ng \
   libffi libffi-devel libgcc libnotify libreswan \
   make mlocate ncurses net-tools \
   traceroute tree util-linux vim \
-  vim-enhanced vim-filesystem wget whois yuicompressor
+  vim-enhanced vim-filesystem wget yuicompressor
 
 dnf update -y
 dnf clean all
 dnf makecache
 
 dnf install -y \
-  patch autoconf automake bison bzip2 libtool patch readline-devel
-
-echo progress-bar >> /root/.curlrc
+  patch autoconf automake bison bzip2 libtool patch readline-devel \
+  openssl openssl-devel
 
 curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
 curl -sSL https://get.rvm.io | bash -s -- --autolibs=read-only
 
-PATH=/usr/local/rvm/gems/$RVM_RUBY_DEFAULT/bin:$PATH &&
-echo 'rvm_silence_path_mismatch_check_flag=1' >> /root/.rvmrc
+PATH=/usr/local/rvm/gems/$RVM_RUBY_DEFAULT/bin:$PATH
+echo 'rvm_silence_path_mismatch_check_flag=1' > /root/.rvmrc
 
 /usr/local/rvm/bin/rvm get stable --auto-dotfiles
 usermod -aG rvm root
